@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revenue Result - Aeroplan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div class="navbar">
+    <a href="/logout" class="logout">Logout</a>
+</div>
+
+<div class="card">
+    <h1>Revenue Breakdown</h1>
+
+    <p>Economy Revenue: ₹{{ result.economy_revenue }}</p>
+    <p>Business Revenue: ₹{{ result.business_revenue }}</p>
+    <p>First Class Revenue: ₹{{ result.first_revenue }}</p>
+    <p>Base Revenue: ₹{{ result.base_revenue }}</p>
+
+    <h2 class="final">Final Revenue: ₹{{ result.final_revenue }}</h2>
+
+    <a href="/index">
+        <button>Calculate Again</button>
+    </a>
+</div>
+
+</body>
+</html>

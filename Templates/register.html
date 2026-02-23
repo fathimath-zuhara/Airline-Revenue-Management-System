@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>AEROPLAN</h1>
+    <h3>Authorized Staff Registration</h3>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/register">
+
+        <input type="text" name="fullname" placeholder="Full Name" required>
+
+        <input type="email" name="email"
+               placeholder="Official Email (admin@aeroplan.com)" required>
+
+        <input type="text" name="employee_id"
+               placeholder="Employee ID" required>
+
+        <select name="department" required>
+            <option value="">Select Department</option>
+            <option>Revenue Management</option>
+            <option>Operations</option>
+            <option>Finance</option>
+            <option>Administration</option>
+        </select>
+
+        <select name="role" required>
+            <option value="">Select Role</option>
+            <option>Revenue Analyst</option>
+            <option>Manager</option>
+            <option>Administrator</option>
+        </select>
+
+        <input type="password" name="password"
+        placeholder="Create Password"
+        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$"
+        title="Minimum 8 characters, 1 letter, 1 number, 1 special character"
+        required>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <br>
+    <p>Already have an account? <a href="/">Login</a></p>
+</div>
+
+</body>
+</html>

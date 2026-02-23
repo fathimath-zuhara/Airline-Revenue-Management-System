@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Revenue Calculator - Aeroplan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="card">
+    <h1>Airplane Revenue Calculator</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" action="/calculate">
+
+        <input type="number"
+               name="economy"
+               placeholder="Economy Passengers"
+               min="0"
+               required>
+
+        <input type="number"
+               name="business"
+               placeholder="Business Passengers"
+               min="0"
+               required>
+
+        <input type="number"
+               name="first"
+               placeholder="First Class Passengers"
+               min="0"
+               required>
+
+        <input type="number"
+               name="distance"
+               placeholder="Distance (km)"
+               min="1"
+               required>
+
+        <select name="aircraft" required>
+            <option value="A320">A320</option>
+            <option value="B737">B737</option>
+            <option value="A380">A380</option>
+        </select>
+
+        <button type="submit">Calculate Revenue</button>
+    </form>
+</div>
+
+</body>
+</html>
