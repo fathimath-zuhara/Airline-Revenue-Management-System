@@ -14,12 +14,20 @@
 <div class="card">
     <h1>Revenue Breakdown</h1>
 
-    <p>Economy Revenue: ₹{{ result.economy_revenue }}</p>
-    <p>Business Revenue: ₹{{ result.business_revenue }}</p>
-    <p>First Class Revenue: ₹{{ result.first_revenue }}</p>
-    <p>Base Revenue: ₹{{ result.base_revenue }}</p>
+    <p>Economy Revenue: ₹{{ "{:,.0f}".format(result.economy_revenue) }}</p>
+    <p>Business Revenue: ₹{{ "{:,.0f}".format(result.business_revenue) }}</p>
+    <p>First Class Revenue: ₹{{ "{:,.0f}".format(result.first_revenue) }}</p>
 
-    <h2 class="final">Final Revenue: ₹{{ result.final_revenue }}</h2>
+    <hr>
+
+    <p>Base Revenue: ₹{{ "{:,.0f}".format(result.base_revenue) }}</p>
+    <p>Surcharge Added: ₹{{ "{:,.0f}".format(result.surcharge) }}</p>
+    <p>Bonus Added: ₹{{ "{:,.0f}".format(result.bonus) }}</p>
+    <p>Discount Deducted: ₹{{ "{:,.0f}".format(result.discount) }}</p>
+
+    <h2 class="final">
+        Final Revenue: ₹{{ "{:,.0f}".format(result.final_revenue) }}
+    </h2>
 
     <a href="/index">
         <button>Calculate Again</button>

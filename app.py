@@ -4,9 +4,9 @@ import re
 app = Flask(__name__)
 
 # Ticket rates
-ECONOMY_RATE = 5
-BUSINESS_RATE = 8
-FIRST_RATE = 12
+ECONOMY_RATE = 7
+BUSINESS_RATE = 10
+FIRST_RATE = 15
 
 
 # PASSWORD VALIDATION
@@ -35,24 +35,36 @@ def calculate_revenue(economy, business, first, distance, aircraft):
     first_revenue = first * distance * FIRST_RATE
 
     base_revenue = economy_revenue + business_revenue + first_revenue
-    final_revenue = base_revenue
+    
+    surcharge=0
+    bonus =  0
+    discount = 0
 
+    # Passenger count bonus
     if total_passengers > 300:
-        final_revenue += base_revenue * 0.10
+        surcharge += base_revenue * 0.10
 
+    # Long distance penalty
     if distance > 5000:
-        final_revenue -= base_revenue * 0.05
+        discount += base_revenue * 0.05
 
+    # Aircraft-based bonus
     if aircraft == "A380" and total_passengers > 250:
-        final_revenue += 100000
+        bonus += 100000
+
+    final_revenue = base_revenue + surcharge + bonus - discount
 
     return {
         "economy_revenue": economy_revenue,
         "business_revenue": business_revenue,
         "first_revenue": first_revenue,
         "base_revenue": base_revenue,
+        "surcharge": surcharge, # Add this line!
+        "bonus": bonus,
+        "discount": discount,
         "final_revenue": final_revenue
     }
+
 
 @app.route("/logout")
 def logout():
@@ -108,9 +120,8 @@ def index():
 
 
 # CALCULATE
-@app.route("/calculate", methods=["POST"])
+@app.route("/calculate", methods=['POST'])
 def calculate():
-    try:
         economy = int(request.form["economy"])
         business = int(request.form["business"])
         first = int(request.form["first"])
@@ -128,10 +139,6 @@ def calculate():
         result = calculate_revenue(economy, business, first, distance, aircraft)
 
         return render_template("result.html", result=result)
-
-    except:
-        return render_template("index.html",
-                               error="Invalid input values.")
 
 
 if __name__ == "__main__":
